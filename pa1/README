@@ -1,0 +1,49 @@
+CS5273 Network Systems
+Fall 2015
+University of Colorado Boulder
+Programming Assignment 1
+TCP Webserver
+
+By Amber Womack
+
+Inspired by work from BeeJ's and Vivan Ramachandran for basic echoSever code provided. 
+
+---Folders---
+pa1 			- Assignment description and documentation, main encasing folder
+documentRoot	- Contains images, css, files, graphics, fancybox, index.html, and jquery-1.4.3.min.js for Webpage to display correctly
+
+---Files---
+README        	- This file
+myServer.c     	- Main coding page, webserver code
+ws.conf			- Configuration file containing the portnumber, document Root, directory index, and Content type
+
+---Executables---
+myServer		- Server executable for myServer.c
+
+---Documentation---
+Programming assignment1.pdf - Assignment Instructions and Tips
+https://www.youtube.com/watch?v=eVYsIolL2gE  - Assignment Explanation Video 1
+http://www.csc.villanova.edu/~mdamian/sockets/echoC.htm - Assginment Explanation Video 2
+
+---Building---
+To run the program, go to the correct zipped folder or pa1 assignment
+Run on command line: $ gcc myServer.c -o myServer - to compile
+Run the executable: $ ./myServer 
+Then go to a webbrowser and type localhost:10002
+
+---Specific Funcitons---
+Main() - main execution of the program
+checkGet() - GET call functionality
+parseConf() - In order to parse the ws.conf file
+
+---General Description---
+The purpose of this assignment was to create a HTTP based web server that handles various requests from users. It has a document root which contained the files with the extensions. When a request was sent, it would open the document root to obtain one of these. The default page is the index.html contained within the document and is what is displayed onto the webpage. With the ability to handle mulitple connenctions of the embedded pictures which makes multiple get calls. Also incorporated is the ability to pipeline which is sending multiple requests without waiting for each response. Then implemented is a timer of 10 seconds. If there ins't a connection keep alive in the request header, then the socket will close. Lastly encorportated is error handling. These errors include 400, 404, 500, and 501. The configuration file contains the service port number, document root to the www folder which contains the images and data for the webpage, the directory index, and the content types supported. To run this program see above. 
+
+Within main() the socket and client descriptors are initialized and established. Allowing for bind() to the socket, listen() on the socket, accept() clocks and waits for the client. With the ability to the fork() multiple processes with a timer implementation which allows for the connection to stay awake for a certain time period before closing. This allows mulitple processes to run at one time. Error handling is also done in this section. 
+
+Within checkGet() sets up the headers which includes the date and time, content-length, connection-type. It allows for the get call core functionality including opening the index.html and the sends it. If we can't open it from that file path will send an error as well. 
+
+Within parseConf() parses the ws.conf file which is the configuration file. This file is what gives us the header information. Through a series of steps we disregard the comments and even obtain the file types based on the '.' 
+
+
+
